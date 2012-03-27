@@ -3,21 +3,19 @@ layout: page
 title: Itai Ferber
 description: My personal site and blog.
 ---
-<ul id="blog">{% for post in site.posts limit 15 %}
-	<li>
-		<article class="post">
-			<h1 class="post-title">
-				<a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-			</h1>
-			<div class="post-content">
-				{{ post.content }}
-			</div>
-			<div class="post-meta">
-				<span class="post-date">Posted on {{ post.date | date: '%B %d, %Y' }}</span>
-				<span class="post-tags">{% for tag in post.tags %}{{ tag | downcase }}{% if forloop.last == false %}, {% endif %}{% endfor %}</span>
-			</div>
-		</article>
-	</li>{% endfor %}
-</ul>
+<section id="blog">{% for post in site.posts limit 15 %}
+	<article class="post">
+		<h1 class="post-title">
+			<a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+		</h1>
+		<div class="post-content">
+			{{ post.content }}
+		</div>
+		<div class="post-meta">
+			<span class="post-date">Posted on {{ post.date | date: '%B %d, %Y' }}</span>
+			<span class="post-tags">{% for tag in post.tags %}{{ tag | downcase }}{% if forloop.last == false %}, {% endif %}{% endfor %}</span>
+		</div>
+	</article>{% endfor %}
+</section>
 
-<h2 class="blog-archive">Want more? Check out the <a href="/archive.html" title="Archive">archive</a></h2>
+<h2 id="archive-link">Want more? Check out the <a href="/archive.html" title="Archive">archive</a></h2>

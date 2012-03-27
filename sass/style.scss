@@ -7,7 +7,7 @@ body {
 	background-color: $body-background;
 	font-family: $serif-fonts;
 	font-size: $body-font-size;
-	line-spacing: $body-line-spacing;
+	line-height: $body-line-spacing;
 }
 
 a {
@@ -18,6 +18,11 @@ a {
 		color: $dark-grey;
 		text-decoration: underline;
 	}
+}
+
+hr {
+	border-bottom: solid 0.0625em $light-grey;
+	margin-top: 1em;
 }
 
 // Containers
@@ -52,6 +57,27 @@ header {
 }
 
 // Blog Elements
+.post-date {
+	color: $grey;
+}
+
+.post-tags {
+	color: $grey;
+	display: block;
+	float: right;
+}
+
+.post-title {
+	display: block;
+	font-family: $sans-serif-fonts;
+	font-weight: bold;
+	width: 100%;
+
+	a {
+		color: black;
+	}
+}
+
 .post {
 	margin-bottom: $post-bottom-margin;
 
@@ -96,8 +122,7 @@ header {
 			font-family: $monospace-fonts;
 			margin: $post-block-margin;
 			margin-left: $post-block-border-margin;
-			overflow: auto;
-			-webkit-overflow-scrolling: touch;
+			overflow-y: scroll;
 			padding: $accessory-block-padding;
 			padding-left: $post-block-border-padding;
 			white-space: pre;
@@ -110,28 +135,17 @@ header {
 		}
 	}
 
-	.post-date {
-		color: $grey;
-	}
-
-	.post-tags {
-		color: $grey;
-		display: block;
-		float: right;
-	}
-
 	.post-title {
-		font-family: $sans-serif-fonts;
 		font-size: $post-title-font-size;
-		font-weight: bold;
-
-		a {
-			color: black;
-		}
 	}
 }
 
-.blog-archive {
+#archive-link {
 	font-style: italic;
+	margin-bottom: $post-bottom-margin;
 	text-align: center;
+}
+
+.archive-post {
+	margin-bottom: $post-bottom-margin / 2;
 }

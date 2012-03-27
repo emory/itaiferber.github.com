@@ -1,0 +1,12 @@
+---
+layout: page
+title: Archive
+description: An archive of all my posts.
+---
+<ul id="archive">{% for post in site.posts %}
+	<li id="archive-post">
+		<span class="post-title"><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></span>
+		<span class="post-date">{{ post.date | date: '%B %d, %Y' }}</span>
+		<span class="post-tags">{% for tag in post.tags %}{{ tag | downcase }}{% if forloop.last == false %}, {% endif %}{% endfor %}</span>
+	</li>{% endfor %}
+</ul>
