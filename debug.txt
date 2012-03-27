@@ -1,0 +1,4 @@
+---
+---
+Site last updated on '{{ site.time }}'.
+Site Markdown engine is '{{ site.markdown }}'.

@@ -2,7 +2,7 @@
 @import "compass/reset";
 @import "constants";
 
-// Styling
+// Global Styling
 body {
 	background-color: $body-background;
 	font-family: $serif-fonts;
@@ -10,6 +10,7 @@ body {
 	line-height: $body-line-spacing;
 }
 
+// Page Elements
 a {
 	color: $grey;
 	text-decoration: none;
@@ -20,9 +21,67 @@ a {
 	}
 }
 
+blockquote, q {
+	border-left: solid $red;
+	color: $grey;
+	font-style: italic;
+	margin: $post-block-margin;
+	margin-left: $post-block-border-margin;
+	padding-left: $post-block-border-indented-padding;
+}
+
+code {
+	background: $accessory-background;
+	font-family: $monospace-fonts;
+	padding: $inline-code-padding;
+}
+
 hr {
-	border-bottom: solid 0.0625em $light-grey;
-	margin-top: 1em;
+	background: $light-grey;
+	border: none;
+	border-bottom: solid $horizontal-rule-border-width $light-grey;
+	color: $light-grey;
+	margin-top: $horizontal-rule-top-margin;
+}
+
+img {
+	border-left: solid $dark-grey;
+	margin: $post-block-margin;
+	margin-left: $post-block-border-margin;
+	max-width: 100%;
+	padding-left: $post-block-border-padding;
+	text-align: center;
+}
+
+ol {
+	background: $accessory-background;
+	border-left: solid $green;
+	list-style: decimal;
+	margin: $post-block-margin;
+	margin-left: $post-block-border-margin;
+	padding: $accessory-block-padding;
+	padding-left: $post-block-border-indented-padding;
+}
+
+p {
+	margin: $post-block-margin;
+}
+
+pre {
+	background: $accessory-background;
+	border-left: solid $blue;
+	display: block;
+	margin: $post-block-margin;
+	margin-left: $post-block-border-margin;
+	overflow: scroll;
+	padding: $accessory-block-padding;
+	padding-left: $post-block-border-padding;
+}
+
+ul {
+	@extend ol;
+	padding-left: $post-block-border-padding;
+	list-style: none;
 }
 
 // Containers
@@ -35,28 +94,34 @@ hr {
 .accessory {
 	background: $accessory-background;
 	padding: $accessory-block-padding;
+	margin-bottom: $accessory-block-bottom-margin;
 }
 
-// Page Elements
-header {
-	margin-bottom: $header-bottom-margin;
+// Logo
+#logo {
+	font-size: $logo-font-size;
+	margin-bottom: $logo-bottom-margin;
+	text-align: center;
 
-	#logo {
-		font-size: $logo-font-size;
-		margin-bottom: $logo-bottom-margin;
-		text-align: center;
-
-		#firstname {
-			color: $grey;
-		}
-
-		#lastname {
-			color: $green;
-		}
+	#firstname {
+		color: $grey;
+	}
+	#lastname {
+		color: $green;
 	}
 }
 
 // Blog Elements
+.post {
+	margin-bottom: $post-bottom-margin;
+
+}
+
+.post-content {
+	border-left: $post-border-spacing solid $light-grey;
+	padding-left: $post-border-padding;
+}
+
 .post-date {
 	color: $grey;
 }
@@ -70,6 +135,7 @@ header {
 .post-title {
 	display: block;
 	font-family: $sans-serif-fonts;
+	font-size: $post-title-font-size;
 	font-weight: bold;
 	width: 100%;
 
@@ -78,74 +144,14 @@ header {
 	}
 }
 
-.post {
-	margin-bottom: $post-bottom-margin;
-
-	.post-content {
-		border-left: $post-border-spacing solid $light-grey;
-		padding-left: $post-border-padding;
-
-		blockquote, q {
-			border-left: solid $red;
-			color: $grey;
-			font-style: italic;
-			margin: $post-block-margin;
-			margin-left: $post-block-border-margin;
-			padding-left: $post-block-border-indented-padding;
-		}
-
-		img {
-			border-left: solid $dark-grey;
-			margin: $post-block-margin;
-			margin-left: $post-block-border-margin;
-			max-width: 100%;
-			padding-left: $post-block-border-padding;
-			text-align: center;
-		}
-
-		ol {
-			border-left: solid $green;
-			list-style: decimal;
-			margin: $post-block-margin;
-			margin-left: $post-block-border-margin;
-			padding-left: $post-block-border-indented-padding;
-		}
-
-		p {
-			margin: $post-block-margin;
-		}
-
-		pre {
-			background: $accessory-background;
-			border-left: solid $blue;
-			display: block;
-			font-family: $monospace-fonts;
-			margin: $post-block-margin;
-			margin-left: $post-block-border-margin;
-			overflow-y: scroll;
-			padding: $accessory-block-padding;
-			padding-left: $post-block-border-padding;
-			white-space: pre;
-		}
-
-		ul {
-			@extend ol;
-			padding-left: $post-block-border-padding;
-			list-style: none;
-		}
-	}
-
-	.post-title {
-		font-size: $post-title-font-size;
-	}
+// Archive
+#archive {
+	border-left: $post-border-spacing solid $green;
+	padding-left: $post-border-padding;
 }
 
 #archive-link {
 	font-style: italic;
 	margin-bottom: $post-bottom-margin;
 	text-align: center;
-}
-
-.archive-post {
-	margin-bottom: $post-bottom-margin / 2;
 }

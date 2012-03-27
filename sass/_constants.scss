@@ -20,12 +20,11 @@ $body-font-size: 0.875em;
 $body-line-spacing: 1.3;
 
 $page-margins: 0 auto;
-$page-padding: 1.5em;
+$page-padding: 1em 1.5em;
 $page-width: 720px;
 
-$header-bottom-margin: 1em;
 $logo-font-size: 2em;
-$logo-bottom-margin: 0.5em;
+$logo-bottom-margin: 0.3em;
 
 $post-bottom-margin: 2em;
 $post-border-spacing: 0.25em;
@@ -37,4 +36,10 @@ $post-block-border-margin: -0.9375em;
 $post-block-border-padding: -1 * $post-block-border-margin - 0.1875em;
 $post-block-border-indented-padding: $post-block-border-padding + 1.3125em;
 
-$accessory-block-padding: 0.5em;
+$accessory-block-padding: 0.125em 0.5em;
+$accessory-block-bottom-margin: 1em;
+
+$inline-code-padding: 0.125em;
+
+$horizontal-rule-border-width: 0.1875em;
+$horizontal-rule-top-margin: 1em;

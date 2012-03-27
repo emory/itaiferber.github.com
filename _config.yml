@@ -1,0 +1,7 @@
+# Set up permalinks.
+permalink: /:title.html
+
+# Set up Markdown.
+markdown: rdiscount
+rdiscount:
+  extensions: [smart]
