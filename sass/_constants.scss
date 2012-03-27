@@ -1,0 +1,40 @@
+/* Colors */
+$body-background: #f7f7f7;
+$accessory-background: #eee;
+
+$red: #f88;
+$green: #93c13e;
+$blue: #88f;
+$yellow: #ff8;
+$light-grey: #dbdbdb;
+$grey: #777;
+$dark-grey: #333;
+
+/* Fonts */
+$serif-fonts: "skolar-1", "skolar-2", serif;
+$sans-serif-fonts: "ronnia-1", "ronnia-2", sans-serif;
+$monospace-fonts: "inconsolata-1", monospace;
+
+/* Layout */
+$body-font-size: 0.875em;
+$body-line-spacing: 1.3;
+
+$page-margins: 0 auto;
+$page-padding: 1.5em;
+$page-width: 720px;
+
+$header-bottom-margin: 1em;
+$logo-font-size: 2em;
+$logo-bottom-margin: 0.5em;
+
+$post-bottom-margin: 2em;
+$post-border-spacing: 0.25em;
+$post-border-padding: 3 * $post-border-spacing;
+$post-title-font-size: 1.25em;
+
+$post-block-margin: 0.6em 0;
+$post-block-border-margin: -0.9375em;
+$post-block-border-padding: -1 * $post-block-border-margin - 0.1875em;
+$post-block-border-indented-padding: $post-block-border-padding + 1.3125em;
+
+$accessory-block-padding: 0.5em;

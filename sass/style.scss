@@ -1,0 +1,132 @@
+// Imports
+@import "compass/reset";
+@import "constants";
+
+// Styling
+body {
+	background-color: $body-background;
+	font-family: $serif-fonts;
+	font-size: $body-font-size;
+	line-spacing: $body-line-spacing;
+}
+
+a {
+	color: $grey;
+	text-decoration: none;
+
+	&:hover {
+		color: $dark-grey;
+		text-decoration: underline;
+	}
+}
+
+// Containers
+.container {
+	margin: $page-margins;
+	max-width: $page-width;
+	padding: $page-padding;
+}
+
+.accessory {
+	background: $accessory-background;
+	padding: $accessory-block-padding;
+}
+
+// Page Elements
+header {
+	margin-bottom: $header-bottom-margin;
+
+	#logo {
+		font-size: $logo-font-size;
+		margin-bottom: $logo-bottom-margin;
+		text-align: center;
+
+		#firstname {
+			color: $grey;
+		}
+
+		#lastname {
+			color: $green;
+		}
+	}
+}
+
+// Blog Elements
+.post {
+	margin-bottom: $post-bottom-margin;
+
+	.post-content {
+		border-left: $post-border-spacing solid $light-grey;
+		padding-left: $post-border-padding;
+
+		blockquote, q {
+			border-left: solid $red;
+			color: $grey;
+			font-style: italic;
+			margin: $post-block-margin;
+			margin-left: $post-block-border-margin;
+			padding-left: $post-block-border-indented-padding;
+		}
+
+		img {
+			border-left: solid $dark-grey;
+			margin: $post-block-margin;
+			margin-left: $post-block-border-margin;
+			max-width: 100%;
+			padding-left: $post-block-border-padding;
+			text-align: center;
+		}
+
+		ol {
+			border-left: solid $green;
+			list-style: decimal;
+			margin: $post-block-margin;
+			margin-left: $post-block-border-margin;
+			padding-left: $post-block-border-indented-padding;
+		}
+
+		p {
+			margin: $post-block-margin;
+		}
+
+		pre {
+			background: $accessory-background;
+			border-left: solid $blue;
+			display: block;
+			font-family: $monospace-fonts;
+			margin: $post-block-margin;
+			margin-left: $post-block-border-margin;
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+			padding: $accessory-block-padding;
+			padding-left: $post-block-border-padding;
+			white-space: pre;
+		}
+
+		ul {
+			@extend ol;
+			padding-left: $post-block-border-padding;
+			list-style: none;
+		}
+	}
+
+	.post-date {
+		color: $grey;
+	}
+
+	.post-tags {
+		color: $grey;
+		display: block;
+		float: right;
+	}
+
+	.post-title {
+		font-family: $sans-serif-fonts;
+		font-size: $post-title-font-size;
+		font-weight: bold;
+
+		a {
+			color: black;
+		}
+	}
+}
