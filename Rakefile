@@ -13,14 +13,14 @@ class Post
 
 	# Loading from a file.
 	def Post.load(path)
-		if File.exist?(path) then content = File.read(path) else raise "No file at given path." end
+		if File.exist?(path) then content = File.read(path) else raise 'No file at given path.' end
 		frontmatter = {}
 
 		# Extract the YAML frontmatter.
 		match = /[-]{3}\n(?<frontmatter>((.+: ?.*)?\n)*)[-]{3}\n/.match(content)
 		if match != nil
 			# Remove the frontmatter from the content.
-			content.sub!("---\n#{match[:frontmatter]}---\n", "")
+			content.sub!("---\n#{match[:frontmatter]}---\n", '')
 			if match[:frontmatter].length > 0
 				# Store the frontmatter.
 				match[:frontmatter].each_line do |line|
@@ -36,23 +36,23 @@ class Post
 	end
 
 	# Initialization.
-	def initialize(frontmatter = {}, content = "")
-		raise ArgumentException unless frontmatter.class is Hash and content.class is String
+	def initialize(frontmatter = {}, content = '')
+		raise ArgumentException unless frontmatter.class == Hash and content.class == String
 		@frontmatter = frontmatter
 		@content = content
 	end
 
 	# Writing to a file.
 	def write(path)
-		File.open(File.expand_path(path), "w") {|file| file.print self.to_s}
+		File.open(File.expand_path(path), 'w') {|file| file.print self.to_s}
 	end
 
 	# Conversion to string.
 	def to_s
-		representation = "---" << "\n"
+		representation = '---' << '\n'
 		@frontmatter.each_key {|key| representation << "#{key}: #{@frontmatter[key]}\n"}
-		representation << "---" << "\n"
-		representation << @content << "\n"
+		representation << '---' << '\n'
+		representation << @content
 	end
 end
 
@@ -62,21 +62,21 @@ end
 # A module for interacting with the user. String interpolation is used for type safety.
 module User
 	# Print the given message and get a response.
-	def User.input(message = "")
+	def User.input(message = '')
 		print "#{message}"
 		STDIN.gets.chomp
 	end
 
 	# Print a message and ask the user for a yes or no message.
 	# Returns a boolean.
-	def User.confirm(message = "")
+	def User.confirm(message = '')
 		response = input("#{message} [y/n] ") while response != 'y' and response != 'n'
 		response == 'y'
 	end
 
 	# Asks the user to choose from the given options.
 	# Returns the index of the choice or -1 if the user has opted to cancel.
-	def User.choose(message = "", options = [])
+	def User.choose(message = '', options = [])
 		# No options mean cancel.
 		return -1 if options.empty?
 
@@ -96,17 +96,17 @@ end
 module Helper
 	# List of all posts in '_posts' directory.
 	def Helper.posts
-		Dir.entries("_posts").reject {|file| /^((?!\.)(.*(\.md)*)*)*$/.match(file) == nil}
+		Dir.entries('_posts').reject {|file| /^((?!\.)(.*(\.md)*)*)*$/.match(file).nil?}
 	end
 
 	# List of unpublished drafts.
 	def Helper.unpublished
-		Helper.posts.reject {|file| Post.load("_posts/#{file}").frontmatter[:published] == "true"}
+		Helper.posts.reject {|file| Post.load("_posts/#{file}").frontmatter[:published] == 'true'}
 	end
 
 	# List of published posts.
 	def Helper.published
-		Helper.posts.reject {|file| Post.load("_posts/#{file}").frontmatter[:published] == "false"}
+		Helper.posts.reject {|file| Post.load("_posts/#{file}").frontmatter[:published] == 'false'}
 	end
 end
 
@@ -118,88 +118,85 @@ task :default => ['draft:list']
 
 # Tasks available for working with unpublished drafts.
 namespace :draft do
-	desc "Lists available drafts."
+	desc 'Lists available drafts.'
 	task :list do
-		# Get a list of unpublished drafts and print it.
 		(files = Helper.unpublished) and (abort 'No drafts.' if files.empty?)
 		files.each_index {|index| puts "#{index + 1}. #{files[index]}"}
 	end
 
-	desc "Creates a new draft with the given title and tags."
-	task :new, [:title, :tags] do |t, args|
+	desc 'Creates a new draft with the given title and tags.'
+	task :create, [:title, :tags] do |t, args|
 		# Set up default parameters.
-		args.with_defaults(:title => "", :tags => "")
-		(title = args[:title]) and (abort "Can't create post without title!" if title == "")
+		args.with_defaults(:title => '', :tags => '')
+		(title = args[:title]) and (abort 'Can\'t create post without title!' if title.length == 0)
 
 		# Check if post with same name already exists.
-		filename = "#{title.downcase.gsub(/[^\w ]/, '').gsub(' ', '-')}"
-		expression = Regexp.compile(filename)
-		abort "'#{title}' already exists." if Helper.posts.reject{|file| expression.match(file) == nil}.size > 0
+		filenameExpression = Regexp.compile(title.downcase.gsub(/[^\w ]/, '').gsub(/[ ]+/, '-'))
+		abort "'#{title}' already exists." if Helper.posts.reject{|file| filenameExpression.match(file).nil?}.size > 0
 
 		# Create new post with parameters.
 		date = Time.now
-		filename = "_posts/#{date.strftime("%Y-%m-%d")}-#{filename}-draft.md"
-		frontmatter = {:layout => "post", :title => title, :date => "#{date.strftime("%Y-%m-%d %H:%M")}", :tags => "[#{args[:tags].split(/[^\w-]/).reject{|tag| tag == ""}.join(', ')}]", :published => "false"}
+		filename = "_posts/#{date.strftime('%Y-%m-%d')}-#{filenameExpression.source}-draft.md"
+		frontmatter = {:layout => 'post', :title => title, :date => "#{date.strftime('%Y-%m-%d %H:%M')}", :tags => "[#{args[:tags].split(/[^\w-]/).reject {|tag| tag.length == 0}.join(', ')}]", :published => 'false'}
 
 		# Write post to file and open it.
 		Post.new(frontmatter).write(filename)
 		`open #{filename}`
 	end
 
-	desc "Opens an existing draft matching the given expression for editing."
+	desc 'Opens an existing draft matching the given expression for editing.'
 	task :edit, [:expression] do |t, args|
 		# By default, list all available drafts.
-		args.with_defaults(:expression => ".md")
+		args.with_defaults(:expression => '.md')
 
 		# Reject posts that don't match the expression.
-		(files = Helper.unpublished.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file) == nil}) and (abort 'No drafts.' if files.empty?)
+		(files = Helper.unpublished.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file).nil?}) and (abort 'No drafts.' if files.empty?)
 
 		# Let the user edit a file.
-		(index = User.choose("Which draft would you like to edit?", files)) and (abort 'Canceled.' if index == -1)
+		(index = User.choose('Which draft would you like to edit?', files)) and (abort 'Canceled.' if index == -1)
 		`open _posts/#{files[index]}`
 	end
 
-	desc "Deletes a draft matching the given expression."
+	desc 'Deletes a draft matching the given expression.'
 	task :delete, [:expression] do |t, args|
 		# By default, list all drafts.
-		args.with_defaults(:expression => ".md")
+		args.with_defaults(:expression => '.md')
 
 		# Generate a list of files matching the expression.
-		(files = Helper.unpublished.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file) == nil}) and (abort 'No drafts.' if files.empty?)
-		index = User.choose("Which draft would you like to delete?", files)
-		abort 'Canceled.' if index == -1
+		(files = Helper.unpublished.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file).nil?}) and (abort 'No drafts.' if files.empty?)
+		(index = User.choose('Which draft would you like to delete?', files)) and (abort 'Canceled.' if index == -1)
 
 		# Delete the draft.
 		`rm _posts/#{files[index]}`
 	end
 
-	desc "Publishes a post matching the given expression."
+	desc 'Publishes a post matching the given expression.'
 	task :publish, [:expression] do |t, args|
 		# By default, list all drafts.
-		args.with_defaults(:expression => ".md")
+		args.with_defaults(:expression => '.md')
 
 		# Reject drafts that don't match the description.
-		(files = Helper.unpublished.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file) == nil}) and (abort 'No drafts.' if files.empty?)
+		(files = Helper.unpublished.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file).nil?}) and (abort 'No drafts.' if files.empty?)
 
 		# Choose a draft.
-		(index = User.choose("Which draft would you like to publish?", files)) and (abort 'Canceled.' if index == -1)
+		(index = User.choose('Which draft would you like to publish?', files)) and (abort 'Canceled.' if index == -1)
 
 		# Update draft frontmatter.
 		date = Time.now
 		post = Post.load("_posts/#{files[index]}")
-		post.frontmatter[:layout] = "post"
-		post.frontmatter[:date] = "#{date.strftime("%Y-%m-%d %H:%M")}"
-		post.frontmatter[:published] = "true"
+		post.frontmatter[:layout] = 'post'
+		post.frontmatter[:date] = "#{date.strftime('%Y-%m-%d %H:%M')}"
+		post.frontmatter[:published] = 'true'
 
 		# Search for local resource URLs. Upload to Rackspace Cloud Files using API.
-		resourceRegexp = /\[(?<title>.+)\]\(file:\/\/localhost(?<path>.+)\)/
-		if resourceRegexp.match post.content then
+		resourceExpression = /\[(?<title>.+)\]\(file:\/\/localhost(?<path>.+)\)/
+		if resourceExpression.match post.content then
 			# Connect, pulling API key from OS X keychain.
-			cloudFiles = CloudFiles::Connection.new(:username => 'itaiferber', :api_key => `security find-internet-password -g -s rackspace 2>&1 >/dev/null`[/^password: "(.*)"$/, 1])
+			cloudFiles = CloudFiles::Connection.new(:username => 'itaiferber', :api_key => `security find-internet-password -g -s rackspace 2>&1 >/dev/null`[/^password: '(.*)'$/, 1])
 			container = cloudFiles.container('itaiferber.net')
 
 			# Check for continual matching.
-			while resourceRegexp.match post.content
+			while resourceExpression.match post.content
 				title = $~['title']
 				path = $~['path']
 
@@ -221,63 +218,63 @@ namespace :draft do
 		end
 
 		# Make the draft a real post.
-		post.write("_posts/#{files[index].sub("-draft.md", ".md")}")
+		post.write("_posts/#{files[index].sub('-draft.md', '.md')}")
 		File.delete("_posts/#{files[index]}")
 	end
 end
 
 # Tasks available for working with published posts.
 namespace :post do
-	desc "Lists published posts."
+	desc 'Lists published posts.'
 	task :list do
 		(files = Helper.published) and (abort 'No posts.' if files.empty?)
 		files.each_index {|index| puts "#{index + 1}. #{files[index]}"}
 	end
 
-	desc "Opens a published post for reading."
+	desc 'Opens a published post for reading.'
 	task :open do
 		# By default, list all posts.
-		args.with_defaults(:expression => ".md")
+		args.with_defaults(:expression => '.md')
 
 		# Reject posts that don't match the expression.
-		(files = Helper.published.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file) == nil}) and (abort 'No posts.' if files.empty?)
+		(files = Helper.published.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file).nil?}) and (abort 'No posts.' if files.empty?)
 
 		# Open the given post.
-		(index = User.choose("Which post would you like to open?", files)) and (abort 'Canceled.' if index == -1)
+		(index = User.choose('Which post would you like to open?', files)) and (abort 'Canceled.' if index == -1)
 		`open _posts/#{files[index]}`
 	end
 
-	desc "Unpublishes a post matching the given expression."
+	desc 'Unpublishes a post matching the given expression.'
 	task :unpublish, [:expression] do |t, args|
 		# By default, list all posts.
-		args.with_defaults(:expression => ".md")
-		files = Helper.published.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file) == nil}
+		args.with_defaults(:expression => '.md')
+		files = Helper.published.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file).nil?}
 		abort 'No posts.' if files.empty?
 
 		# Choose a post.
-		index = User.choose("Which post would you like to unpublish?", files)
+		index = User.choose('Which post would you like to unpublish?', files)
 		abort 'Canceled.' if index == -1
 
 		# Update frontmatter.
 		post = Post.load("_posts/#{files[index]}")
-		post.frontmatter[:published] = "false"
+		post.frontmatter[:published] = 'false'
 
 		# Revert post to draft form.
-		post.write("_posts/#{files[index].sub(".md", "-draft.md")}")
+		post.write("_posts/#{files[index].sub('.md', '-draft.md')}")
 		File.delete("_posts/#{files[index]}")
 	end
 end
 
 # Tasks available for working with the site itself.
 namespace :site do
-	desc "Start Jekyll in a local webserver."
+	desc 'Start Jekyll in a local webserver.'
 	task :server do
 		# Spawn child processes.
-		compassPID = Process.spawn("compass watch")
-		jekyllPID = Process.spawn("jekyll --auto --pygments --server")
+		compassPID = Process.spawn('compass watch')
+		jekyllPID = Process.spawn('jekyll --auto --pygments --server')
 
 		# Set up interrupt trap.
-		trap("INT") {
+		trap('INT') {
 			[compassPID, jekyllPID].each {|pid| Process.kill(9, pid) rescue Errno::ESRCH}
 		}
 
