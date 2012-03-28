@@ -3,10 +3,11 @@ layout: page
 title: Itai Ferber
 description: My personal site and blog.
 ---
-<section id="bio" class="accessory">
-					<p>Hi! My name is Itai. I'm a Mac and iOS developer, mostly. You can find me on <a href="https://github.com/itaiferber" title="GitHub">GitHub</a> and <a href="https://twitter.com/itaiferber" title="Twitter">Twitter</a>. If you're looking for a professional profile, you can take a look at my <a href="http://careers.stackoverflow.com/itaiferber" title="StackOverflow Careers">StackOverflow Careers</a> page. If you want to contact me, feel free to <a href="mailto:hi@itaiferber.net" title="Email Me">send me an email</a>.</p>
-				</section>
-				<section id="blog">{% for post in site.posts limit:10 %}
+			<section id="bio" class="accessory">
+				<p>Hi! My name is Itai. I'm a Mac and iOS developer, mostly. You can find me on <a href="https://github.com/itaiferber" title="GitHub">GitHub</a> and <a href="https://twitter.com/itaiferber" title="Twitter">Twitter</a>. If you're looking for a professional profile, you can take a look at my <a href="http://careers.stackoverflow.com/itaiferber" title="StackOverflow Careers">StackOverflow Careers</a> page. If you want to contact me, feel free to <a href="mailto:hi@itaiferber.net" title="Email Me">send me an email</a>.</p>
+			</section>
+
+			<section id="blog">{% for post in site.posts limit:10 %}
 				<article class="post">
 					<h1 class="post-title">
 						<a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>

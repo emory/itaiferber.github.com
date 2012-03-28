@@ -13,7 +13,7 @@ class Post
 
 	# Loading from a file.
 	def Post.load(path)
-		if File.exist?(path) then content = File.read(path) else raise "No file at given path."
+		if File.exist?(path) then content = File.read(path) else raise "No file at given path." end
 		frontmatter = {}
 
 		# Extract the YAML frontmatter.
@@ -116,7 +116,7 @@ end
 # Set the default task.
 task :default => ['draft:list']
 
-desc "Tasks available for working with unpublished drafts."
+# Tasks available for working with unpublished drafts.
 namespace :draft do
 	desc "Lists available drafts."
 	task :list do
@@ -206,7 +206,7 @@ namespace :draft do
 				# Check to see that local file really exists.
 				if File.exists? path then
 					# Generate a filename for the uploaded file in the form 'post-title-escaped-resource-name.extension'.
-					filename = "#{post.frontmatter[:title]} #{/\/(.+\/)?(?<filename>.+\..+)/.match(path)['filename']}".downcase.gsub(/[^ \w\d.]+/, '').gsub(' ', '-')
+					filename = "#{post.frontmatter[:title]} #{/\/(.+\/)?(?<filename>.+\..+)/.match(path)['filename']}".downcase.gsub(/[^ \w.]+/, '').gsub(' ', '-')
 
 					# Upload file contents.
 					object = container.create_object filename
@@ -226,7 +226,7 @@ namespace :draft do
 	end
 end
 
-desc "Tasks available for working with published posts."
+# Tasks available for working with published posts.
 namespace :post do
 	desc "Lists published posts."
 	task :list do
@@ -268,7 +268,7 @@ namespace :post do
 	end
 end
 
-desc "Tasks available for working with the site itself."
+# Tasks available for working with the site itself.
 namespace :site do
 	desc "Start Jekyll in a local webserver."
 	task :server do
