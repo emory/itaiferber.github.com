@@ -131,13 +131,14 @@ namespace :draft do
 		(title = args[:title]) and (abort 'Can\'t create post without title!' if title.length == 0)
 
 		# Check if post with same name already exists.
-		filenameExpression = Regexp.compile(title.downcase.gsub(/[^\w ]/, '').gsub(/[ ]+/, '-'))
+		filenameExpression = Regexp.compile(title.downcase.gsub(/[^[[:alnum:]] ]/, '').gsub(/[ ]+/, '-'))
 		abort "'#{title}' already exists." if Helper.posts.reject{|file| filenameExpression.match(file).nil?}.size > 0
 
 		# Create new post with parameters.
 		date = Time.now
 		filename = "_posts/#{date.strftime('%Y-%m-%d')}-#{filenameExpression.source}-draft.md"
-		frontmatter = {:layout => 'post', :title => title, :date => "#{date.strftime('%Y-%m-%d %H:%M')}", :tags => "[#{args[:tags].split(/[^\w-]/).reject {|tag| tag.length == 0}.join(', ')}]", :published => 'false'}
+		tags = "[#{args[:tags].split(/;/).map {|tag| tag.strip}.reject {|tag| tag.length == 0}.join ', '}]"
+		frontmatter = {:layout => 'post', :title => title, :date => "#{date.strftime('%Y-%m-%d %H:%M')}", :tags => tags, :published => 'false'}
 
 		# Ensure the '_posts' folder exists.
 		if File.exist?('_posts') then
