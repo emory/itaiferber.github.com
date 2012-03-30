@@ -41,7 +41,6 @@ hr {
 	border: none;
 	border-bottom: solid $horizontal-rule-border-width $light-grey;
 	color: $light-grey;
-	margin-top: $horizontal-rule-top-margin;
 }
 
 img {
@@ -106,6 +105,7 @@ ul {
 	#firstname {
 		color: $grey;
 	}
+
 	#lastname {
 		color: $green;
 	}
@@ -142,6 +142,11 @@ ul {
 	a {
 		color: black;
 	}
+
+	.marker {
+		margin-left: $post-title-marker-left-margin;
+		margin-right: $post-title-marker-right-margin;
+	}
 }
 
 // Archive
@@ -152,6 +157,7 @@ ul {
 
 #archive-link {
 	font-style: italic;
-	margin-bottom: $post-bottom-margin;
+	margin-bottom: $archive-link-bottom-margin;
+	margin-top: $archive-link-top-margin;
 	text-align: center;
 }

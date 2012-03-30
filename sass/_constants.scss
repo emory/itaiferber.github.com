@@ -30,6 +30,8 @@ $post-bottom-margin: 2em;
 $post-border-spacing: 0.25em;
 $post-border-padding: 3 * $post-border-spacing;
 $post-title-font-size: 1.25em;
+$post-title-marker-left-margin: -0.125em;
+$post-title-marker-right-margin: 0.5em;
 
 $post-block-margin: 0.6em 0;
 $post-block-border-margin: -0.9375em;
@@ -40,6 +42,6 @@ $accessory-block-padding: 0.125em 0.5em;
 $accessory-block-bottom-margin: 1em;
 
 $inline-code-padding: 0.125em;
-
 $horizontal-rule-border-width: 0.1875em;
-$horizontal-rule-top-margin: 1em;
+$archive-link-top-margin: -1 / 2 * $post-bottom-margin;
+$archive-link-bottom-margin: 1 / 2 * $post-bottom-margin;

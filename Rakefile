@@ -49,9 +49,9 @@ class Post
 
 	# Conversion to string.
 	def to_s
-		representation = '---' << '\n'
+		representation = '---' << "\n"
 		@frontmatter.each_key {|key| representation << "#{key}: #{@frontmatter[key]}\n"}
-		representation << '---' << '\n'
+		representation << '---' << "\n"
 		representation << @content
 	end
 end
@@ -138,6 +138,13 @@ namespace :draft do
 		date = Time.now
 		filename = "_posts/#{date.strftime('%Y-%m-%d')}-#{filenameExpression.source}-draft.md"
 		frontmatter = {:layout => 'post', :title => title, :date => "#{date.strftime('%Y-%m-%d %H:%M')}", :tags => "[#{args[:tags].split(/[^\w-]/).reject {|tag| tag.length == 0}.join(', ')}]", :published => 'false'}
+
+		# Ensure the '_posts' folder exists.
+		if File.exist?('_posts') then
+			(File.delete('_posts') and Dir.new('_posts')) if not File.directory?('_posts')
+		else
+			Dir.new('_posts')
+		end
 
 		# Write post to file and open it.
 		Post.new(frontmatter).write(filename)
@@ -276,6 +283,7 @@ namespace :site do
 		# Set up interrupt trap.
 		trap('INT') {
 			[compassPID, jekyllPID].each {|pid| Process.kill(9, pid) rescue Errno::ESRCH}
+			`rm -rf _site`
 		}
 
 		# Wait three seconds and open site.

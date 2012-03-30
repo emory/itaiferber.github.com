@@ -4,13 +4,13 @@ title: Itai Ferber
 description: My personal site and blog.
 ---
 			<section id="bio" class="accessory">
-				<p>Hi! My name is Itai. I'm a Mac and iOS developer, mostly. You can find me on <a href="https://github.com/itaiferber" title="GitHub">GitHub</a> and <a href="https://twitter.com/itaiferber" title="Twitter">Twitter</a>. If you're looking for a professional profile, you can take a look at my <a href="http://careers.stackoverflow.com/itaiferber" title="StackOverflow Careers">StackOverflow Careers</a> page. If you want to contact me, feel free to <a href="mailto:hi@itaiferber.net" title="Email Me">send me an email</a>.</p>
+				<p>Hi! My name is Itai. I'm a Mac and iOS developer, mostly. You can find me on <a href="https://github.com/itaiferber">GitHub</a> and <a href="https://twitter.com/itaiferber">Twitter</a>. If you're looking for a professional profile, you can take a look at my <a href="http://careers.stackoverflow.com/itaiferber">StackOverflow Careers</a> page. If you want to contact me, feel free to <a href="mailto:hi@itaiferber.net">send me an email</a>.</p>
 			</section>
 
 			<section id="blog">{% for post in site.posts limit:10 %}
 				<article class="post">
 					<h1 class="post-title">
-						<a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+						<span class="marker">☳</span><a href="{% if post.link %}{{ post.link }}{% else %}{{ post.url }}{% endif %}">{{ post.title }}</a>
 					</h1>
 					<section class="post-content">
 						{{ post.content }}
@@ -22,7 +22,7 @@ description: My personal site and blog.
 				</article>{% endfor %}
 			</section>
 
-			<h2 id="archive-link">Want more? Check out the <a href="/archive.html" title="Archive">archive</a></h2>
+			<h2 id="archive-link">Want more? Check out the <a href="/archive.html">archive</a>.</h2>
 			<footer class="accessory">
-				<p>This site runs thanks to the generous folks at GitHub. Feel free to poke through its <a href="https://github.com/itaiferber/itaiferber.github.com" title="itaiferber.github.com">contents</a>. All writing on this site is provided under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="Creative Commons BY-NC-ND License">Creative Commons BY-NC-ND</a> license. Code is shared under the <a href="http://opensource.org/licenses/mit-license.php" title="MIT License">MIT License</a>. Enjoy!</p>
+				<p>This site runs thanks to the generous folks at GitHub. Feel free to poke through its <a href="https://github.com/itaiferber/itaiferber.github.com">contents</a>. All writing on this site is provided under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons BY-NC-ND</a> license. Code is shared under the <a href="http://opensource.org/licenses/mit-license.php">MIT License</a>. Enjoy!</p>
 			</footer>

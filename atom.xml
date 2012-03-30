@@ -11,7 +11,7 @@
     <email>hi@itaiferber.com</email>
   </author>{% for post in site.posts limit:10 %}
   <entry>
-    <title>{{ post.title }}</title>
+    <title>☳ {{ post.title }}</title>
     <id>http://itaiferber.net{{ post.url }}</id>
     <published>{{ post.date | date_to_xmlschema }}</published>
     <link href="http://itaiferber.net{{ post.url }}"/>
