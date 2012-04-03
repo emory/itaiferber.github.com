@@ -4,10 +4,11 @@
 
 // Global Styling
 body {
-	background-color: $body-background;
+	background-color: $body-background-color;
 	font-family: $serif-fonts;
 	font-size: $body-font-size;
 	line-height: $body-line-spacing;
+	text-shadow: 0px 1px 0px $body-text-shadow-color;
 }
 
 // Page Elements
@@ -31,7 +32,7 @@ blockquote, q {
 }
 
 code {
-	background: $accessory-background;
+	background: $accessory-background-color;
 	font-family: $monospace-fonts;
 	padding: $inline-code-padding;
 }
@@ -53,7 +54,7 @@ img {
 }
 
 ol {
-	background: $accessory-background;
+	background: $accessory-background-color;
 	border-left: solid $green;
 	list-style: decimal;
 	margin: $post-block-margin;
@@ -67,7 +68,7 @@ p {
 }
 
 pre {
-	background: $accessory-background;
+	background: $accessory-background-color;
 	border-left: solid $blue;
 	display: block;
 	margin: $post-block-margin;
@@ -91,7 +92,7 @@ ul {
 }
 
 .accessory {
-	background: $accessory-background;
+	background: $accessory-background-color;
 	padding: $accessory-block-padding;
 	margin-bottom: $accessory-block-bottom-margin;
 }
@@ -140,7 +141,7 @@ ul {
 	width: 100%;
 
 	a {
-		color: black;
+		color: $post-title-link-color;
 	}
 
 	.marker {
