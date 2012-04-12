@@ -2,9 +2,6 @@
 $body-background-color: #f7f7f7;
 $accessory-background-color: #eee;
 
-$body-text-shadow-color: white;
-$post-title-link-color: black;
-
 $red: #f88;
 $green: #93c13e;
 $blue: #88f;
@@ -46,5 +43,11 @@ $accessory-block-bottom-margin: 1em;
 
 $inline-code-padding: 0.125em;
 $horizontal-rule-border-width: 0.1875em;
+
 $archive-link-top-margin: -1 / 2 * $post-bottom-margin;
 $archive-link-bottom-margin: 1 / 2 * $post-bottom-margin;
+$archive-post-margin: 0.5em 0;
+
+/* Miscellaneous */
+$body-text-shadow: 0 1px 0 white;
+$link-transition: color 0.4s;

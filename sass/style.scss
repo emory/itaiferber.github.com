@@ -8,7 +8,7 @@ body {
 	font-family: $serif-fonts;
 	font-size: $body-font-size;
 	line-height: $body-line-spacing;
-	text-shadow: 0px 1px 0px $body-text-shadow-color;
+	text-shadow: $body-text-shadow;
 }
 
 // Page Elements
@@ -17,8 +17,11 @@ a {
 	text-decoration: none;
 
 	&:hover {
-		color: $dark-grey;
-		text-decoration: underline;
+		color: $green;
+		-moz-transition: $link-transition;
+		-o-transition: $link-transition;
+		-webkit-transition: $link-transition;
+		transition: $link-transition;
 	}
 }
 
@@ -141,10 +144,15 @@ ul {
 	width: 100%;
 
 	a {
-		color: $post-title-link-color;
+		color: black;
+
+		&:hover {
+			color: $green;
+		}
 	}
 
 	.marker {
+		color: black;
 		margin-left: $post-title-marker-left-margin;
 		margin-right: $post-title-marker-right-margin;
 	}
@@ -154,6 +162,10 @@ ul {
 #archive {
 	border-left: $post-border-spacing solid $green;
 	padding-left: $post-border-padding;
+
+	#archive-post {
+		margin: $archive-post-margin;
+	}
 }
 
 #archive-link {

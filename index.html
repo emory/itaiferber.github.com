@@ -9,9 +9,7 @@ description: My personal site and blog.
 
 			<section id="blog">{% for post in site.posts limit:10 %}
 				<article class="post">
-					<h1 class="post-title">
-						<span class="marker">☳</span><a href="{% if post.link %}{{ post.link }}{% else %}{{ post.url }}{% endif %}">{{ post.title }}</a>
-					</h1>
+					<h1 class="post-title"><a href="{% if post.link %}{{ post.link }}{% else %}{{ post.url }}{% endif %}"><span class="marker">{% if post.link %}→{% else %}☳{% endif %}</span>{{ post.title }}</a></h1>
 					<section class="post-content">
 						{{ post.content }}
 					</section>
