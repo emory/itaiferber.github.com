@@ -5,7 +5,7 @@
 // Global Styling
 body {
 	background-color: $body-background-color;
-	font-family: $serif-fonts;
+	font-family: serif;
 	font-size: $body-font-size;
 	line-height: $body-line-spacing;
 	text-shadow: $body-text-shadow;
@@ -36,7 +36,7 @@ blockquote, q {
 
 code {
 	background: $accessory-background-color;
-	font-family: $monospace-fonts;
+	font-family: monospace;
 	padding: $inline-code-padding;
 }
 
@@ -138,7 +138,7 @@ ul {
 
 .post-title {
 	display: block;
-	font-family: $sans-serif-fonts;
+	font-family: sans-serif;
 	font-size: $post-title-font-size;
 	font-weight: bold;
 	width: 100%;

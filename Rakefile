@@ -161,7 +161,7 @@ namespace :draft do
 		(files = Helper.unpublished.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file).nil?}) and (abort 'No drafts.' if files.empty?)
 
 		# Let the user edit a file.
-		(index = User.choose('Which draft would you like to edit?', files)) and (abort 'Canceled.' if index == -1)
+		if files.length == 1 then index = 0 else (index = User.choose('Which draft would you like to edit?', files)) and (abort 'Canceled.' if index == -1) end
 		`open _posts/#{files[index]}`
 	end
 
@@ -170,11 +170,11 @@ namespace :draft do
 		# By default, list all drafts.
 		args.with_defaults(:expression => '.md')
 
-		# Generate a list of files matching the expression.
+		# Reject posts that don't match the expression.
 		(files = Helper.unpublished.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file).nil?}) and (abort 'No drafts.' if files.empty?)
-		(index = User.choose('Which draft would you like to delete?', files)) and (abort 'Canceled.' if index == -1)
 
 		# Delete the draft.
+		if files.length == 0 then index = 0 else (index = User.choose('Which draft would you like to delete?', files)) and (abort 'Canceled.' if index == -1) end
 		`rm _posts/#{files[index]}`
 	end
 
@@ -239,8 +239,8 @@ namespace :post do
 		files.each_index {|index| puts "#{index + 1}. #{files[index]}"}
 	end
 
-	desc 'Opens a published post for reading.'
-	task :open do
+	desc 'Opens a published post matching the given expression for editing.'
+	task :edit, [:expression] do |t, args|
 		# By default, list all posts.
 		args.with_defaults(:expression => '.md')
 
@@ -248,7 +248,7 @@ namespace :post do
 		(files = Helper.published.reject {|file| /^((?!\.)(.*(#{args[:expression].gsub('.', '\\.')})*)*)*$/.match(file).nil?}) and (abort 'No posts.' if files.empty?)
 
 		# Open the given post.
-		(index = User.choose('Which post would you like to open?', files)) and (abort 'Canceled.' if index == -1)
+		if files.length == 1 then index = 0 else (index = User.choose('Which post would you like to open?', files)) and (abort 'Canceled.' if index == -1) end
 		`open _posts/#{files[index]}`
 	end
 
