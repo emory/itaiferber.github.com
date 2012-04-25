@@ -40,6 +40,10 @@ code {
 	padding: $inline-code-padding;
 }
 
+em {
+	font-style: italic;
+}
+
 hr {
 	background: $light-grey;
 	border: none;
